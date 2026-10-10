@@ -1,0 +1,584 @@
+/* CONTENEDOR PRINCIPAL */
+.reportes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  color: #cdd0e3;
+}
+
+/* =========================================
+   BARRA DE FILTROS
+   ========================================= */
+.filters-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: transparent;
+  padding: 8px 0 10px 0;
+  gap: 20px;
+  margin-bottom: 8px;
+}
+
+
+.filters-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 100px;
+}
+
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-box label {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Rediseño de los Selects */
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #0a0b12;
+  color: #cdd0e3;
+  border: 1px solid #1e2030;
+  padding: 10px 40px 10px 15px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  min-width: 180px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238b8d9b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 10px auto;
+  transition: border-color 0.3s ease;
+}
+
+.custom-select select:focus {
+  outline: none;
+  border-color: #00ff88;
+}
+
+/* Rediseño del Slider */
+.range-control {
+  background-color: #0a0b12;
+  border: 1px solid #1e2030;
+  border-radius: 6px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 39px;
+  box-sizing: border-box;
+  min-width: 220px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 4px;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #00ff88;
+  cursor: pointer;
+}
+
+.range-value {
+  color: #00ff88;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.btn-create {
+  background-color: #00ff88;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.3s ease;
+  align-self: flex-end;
+  margin-bottom: 18px;
+  transform: translateY(8px);
+}
+
+.btn-create:hover { opacity: 0.8; }
+
+/* =========================================
+   GRILLA Y SECCIONES
+   ========================================= */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1.3fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.map-section {
+  background-color: #1a1b23;
+  border-radius: 10px;
+  border: 1px solid #2d2e3b;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-render {
+  width: 100%;
+  height: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#map-radar {
+  width: 100%;
+  height: 520px;
+}
+
+.map-overlay-info {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.location-badge {
+  background-color: rgba(30, 32, 45, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid #2d2e3b;
+}
+
+.critical-badge {
+  background-color: #ff3333;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* =========================================
+   MARCADORES DEL MAPA (LÓGICA RADAR)
+   ========================================= */
+
+/* Forzar visibilidad y capas */
+
+.leaflet-pane, .leaflet-marker-pane, .leaflet-map-pane {
+  z-index: 999 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.leaflet-marker-pane {
+  z-index: 600 !important;
+}
+
+.leaflet-marker-icon {
+  background: transparent !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* --- TU POSICIÓN (Celeste Neón) --- */
+.user-marker-container {
+  display: flex !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.user-dot {
+  width: 14px !important;
+  height: 14px !important;
+  background-color: #00f2ff !important;
+  border: 2px solid #fff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 20px #00f2ff, 0 0 40px rgba(0, 242, 255, 0.6) !important;
+}
+
+.custom-marker {
+  display: flex !important;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.user-pulse {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: rgba(0, 242, 255, 0.6);
+  border-radius: 50%;
+  animation: radar-pulse 2s infinite;
+}
+
+/* --- INCIDENTES (Puntos Brillantes) --- */
+.custom-marker {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.marker-dot {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  border: 2px solid white !important;
+}
+
+.marker-dot:hover {
+  transform: scale(1.3);
+}
+
+.marker-dot.red { background-color: #ff0000 !important; box-shadow: 0 0 20px #ff0000 !important; }
+.marker-dot.orange { background-color: #ff9100 !important; box-shadow: 0 0 20px #ff9100 !important; }
+.marker-dot.green { background-color: #00ff00 !important; box-shadow: 0 0 20px #00ff00 !important; }
+
+@keyframes radar-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(5); opacity: 0; }
+}
+
+/* =========================================
+   LISTA DE TARJETAS (PANEL DERECHO)
+   ========================================= */
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-badge {
+  background-color: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.incident-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 650px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Scrollbar personalizado */
+.incident-cards::-webkit-scrollbar { width: 4px; }
+.incident-cards::-webkit-scrollbar-thumb {
+  background: #2d2e3b;
+  border-radius: 10px;
+}
+
+.card {
+  background-color: #1a1b23;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid transparent;
+  border: 1px solid #2d2e3b;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.card:hover {
+  background-color: #21222c;
+  transform: translateX(5px);
+}
+
+.border-red { border-left: 4px solid #ff3333; }
+.border-orange { border-left: 4px solid #ffaa00; }
+.border-green { border-left: 4px solid #00ff88; }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.text-red { color: #ff3333; font-weight: 600; }
+.text-orange { color: #ffaa00; font-weight: 600; }
+.text-green { color: #00ff88; font-weight: 600; }
+.time { color: #8b8d9b; }
+
+.card .address {
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.card .desc {
+  font-size: 0.8rem;
+  color: #8b8d9b;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.no-data-msg {
+  text-align: center;
+  color: #8b8d9b;
+  padding: 40px;
+  font-style: italic;
+}
+
+/* POPUPS DE LEAFLET */
+.leaflet-popup-content-wrapper {
+  background: #1a1b23 !important;
+  color: white !important;
+  border: 1px solid #2d2e3b;
+  border-radius: 8px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.btn-action {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.btn-resolve {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.btn-resolve:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-delete {
+  background: rgba(255, 51, 51, 0.1);
+  color: #ff3333;
+  border-color: #ff3333;
+}
+
+.btn-delete:hover {
+  background: #ff3333;
+  color: white;
+}
+/* =========================================
+   FILTROS DE NIVEL DE RIESGO
+   ========================================= */
+.risk-filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0a0b12;
+  border: 1px solid #1e2030;
+  border-radius: 6px;
+  padding: 4px;
+  height: 39px;
+  box-sizing: border-box;
+}
+
+.risk-filter-buttons button {
+  background: transparent;
+  color: #8b8d9b;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.risk-filter-buttons button:hover {
+  color: #ffffff;
+  background-color: #1a1b23;
+}
+
+.risk-filter-buttons button.active {
+  background-color: #00ff88;
+  color: #000000;
+}
+
+.dot.blue {
+  background-color: #00f2ff;
+}
+
+.leaflet-popup-tip { background: #1a1b23 !important; }
+
+/* =========================================
+   ESTADÍSTICAS DE RIESGO
+   ========================================= */
+
+.risk-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.risk-stat-card {
+  background-color: #1a1b23;
+  border: 1px solid #2d2e3b;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.risk-stat-card span {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.risk-stat-card small {
+  color: #8b8d9b;
+  font-size: 0.75rem;
+}
+
+.risk-stat-card.high span {
+  color: #ff3333;
+}
+
+.risk-stat-card.medium span {
+  color: #ffaa00;
+}
+
+.risk-stat-card.low span {
+  color: #00ff88;
+}
+
+.risk-stat-card.total span {
+  color: #00f2ff;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 1000;
+
+  display: flex;
+  gap: 12px;
+
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  background: rgba(30, 32, 45, 0.9);
+  color: white;
+  font-size: 0.8rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 0;
+  margin-top: -110px;
+}
+
+.list-header h3 {
+  margin: 0;
+}
+
+.map-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+
+.map-section {
+  position: relative;
+}
+
+.location-btn {
+  position: absolute !important;
+  right: 12px !important;
+  bottom: 60px !important;
+  z-index: 9999 !important;
+}
+
+.btn-outline-map {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 500;
+
+  padding: 8px 14px;
+
+  border: 1px solid #00ff88;
+  border-radius: 8px;
+
+  background: rgba(0, 0, 0, 0.85);
+  color: #00ff88;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.35);
+  transition: all 0.2s ease;
+}
