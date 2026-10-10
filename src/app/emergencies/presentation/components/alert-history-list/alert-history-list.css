@@ -1,0 +1,65 @@
+.history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.history-table th {
+  color: #8D9AAF;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  padding: 0 12px;
+}
+
+.history-table td {
+  background-color: #1A1E24;
+  color: #FFFFFF;
+  font-size: 12px;
+  padding: 16px 12px;
+}
+
+.history-table td:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.history-table td:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.badge-canceled {
+  background-color: rgba(141, 154, 175, 0.1);
+  color: #8D9AAF;
+}
+
+.badge-active {
+  background-color: rgba(229, 57, 53, 0.1);
+  color: #E53935;
+}
+
+.badge-resolved {
+  background-color: rgba(0, 200, 83, 0.1);
+  color: #00C853;
+}
+.btn-cancel-small {
+  padding: 3px 8px;
+  background: transparent;
+  border: 1px solid #ef3b3b;
+  border-radius: 6px;
+  color: #ef3b3b;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel-small:hover {
+  background: #ef3b3b;
+  color: white;
+}

@@ -1,0 +1,38 @@
+<div class="modal-backdrop">
+  <div class="modal-container" [class.border-red]="modalState() === 'denied'">
+
+    <div class="icon-wrapper">
+      <div class="circle-icon" [class.bg-red]="modalState() === 'denied'"></div>
+    </div>
+
+    @if (modalState() === 'request') {
+      <h2 class="modal-title">¿Permitir acceso a tu ubicación?</h2>
+      <p class="modal-description">
+        InstAlert necesita tu ubicacion para adjuntarla a la alerta de emergencia y notificar a usuarios y autoridades cercanas.
+      </p>
+
+      <ul class="benefits-list">
+        <li>Ubicacion exacta adjuntada a tu alerta</li>
+        <li>Datos solo usados en emergencias</li>
+        <li>Usuarios cercanos podran verte en mapa</li>
+      </ul>
+
+      <div class="action-buttons">
+        <button class="btn-deny" (click)="makeDecision(false)">Denegar</button>
+        <button class="btn-allow" (click)="makeDecision(true)">Permitir siempre</button>
+      </div>
+
+      <div class="modal-footer">Requerido para el funcionamiento del Boton de Panico</div>
+    }
+
+    @if (modalState() === 'denied') {
+      <h2 class="modal-title">Se ha denegado el acceso a la ubicación</h2>
+      <p class="modal-description" style="margin-bottom: 32px;">
+        InstAlert necesita tu ubicación para adjuntarla a la alerta de emergencia y notificar a usuarios y autoridades cercanas. Esta opción no estará disponible hasta permitir acceso a la ubicación
+      </p>
+
+      <button class="btn-allow-white" (click)="makeDecision(true)">Permitir</button>
+    }
+
+  </div>
+</div>
