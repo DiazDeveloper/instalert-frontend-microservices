@@ -1,0 +1,31 @@
+<div class="gps-container">
+  <div class="gps-card">
+    <h2>{{ 'GPS.TITULO' | translate }}</h2>
+    <p>{{ 'GPS.SUBTITULO' | translate }}</p>
+
+    @if (!store.activeSession()) {
+      <div class="inactive-state">
+        <div class="radar-off"></div>
+        <button class="btn-start" (click)="activarRastreo()">{{ 'GPS.ACTIVAR' | translate }}</button>
+      </div>
+    } @else {
+      <div class="active-state">
+        <div class="radar-on">
+          <div class="dot"></div>
+        </div>
+
+        <div class="live-data">
+          <h3>{{ 'GPS.INICIADA' | translate }}</h3>
+          <p><strong>{{ 'GPS.USUARIO' | translate }}</strong> {{ store.activeSession()?.citizenName }}</p>
+          <div class="coordinates">
+            <span>LAT: {{ store.activeSession()?.currentLocation?.lat | number:'1.5-5' }}</span>
+            <span>LNG: {{ store.activeSession()?.currentLocation?.lng | number:'1.5-5' }}</span>
+          </div>
+          <small>{{ 'GPS.ACTUALIZANDO' | translate }}</small>
+        </div>
+
+        <button class="btn-stop" (click)="detenerRastreo()">{{ 'GPS.DETENER' | translate }}</button>
+      </div>
+    }
+  </div>
+</div>

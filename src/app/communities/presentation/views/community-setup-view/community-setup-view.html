@@ -1,0 +1,61 @@
+<div class="setup-container">
+  <div class="setup-card">
+    <div class="setup-header">
+      <h2>{{ 'CREAR_COMUNIDAD.TITULO' | translate }}</h2>
+      <p>{{ 'CREAR_COMUNIDAD.SUBTITULO' | translate }}</p>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'CREAR_COMUNIDAD.NOMBRE' | translate }}</label>
+      <input type="text" [(ngModel)]="communityName" [placeholder]="'CREAR_COMUNIDAD.PH_NOMBRE' | translate">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'CREAR_COMUNIDAD.DESC' | translate }}</label>
+      <textarea [(ngModel)]="communityDescription" rows="4" [placeholder]="'CREAR_COMUNIDAD.PH_DESC' | translate"></textarea>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <input type="checkbox" id="privateCheck" [(ngModel)]="isPrivate">
+      <label for="privateCheck">
+        <strong>{{ 'CREAR_COMUNIDAD.PRIVADA' | translate }}</strong> <br>
+        <small>{{ 'CREAR_COMUNIDAD.DESC_PRIVADA' | translate }}</small>
+      </label>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" (click)="createCommunity()">{{ 'CREAR_COMUNIDAD.BTN_CREAR' | translate }}</button>
+    </div>
+  </div>
+
+  @if (misComunidades.length > 0) {
+    <div class="communities-list">
+      <h3>{{ 'CREAR_COMUNIDAD.MIS_COMUNIDADES' | translate }}</h3>
+
+      @for (com of misComunidades; track com.id) {
+        <div class="community-card">
+          <div class="com-header">
+            <h4>🛡️ {{ com.nombre }}</h4>
+            <span class="badge" [class.public]="!com.privada">
+              {{ com.privada ? ('CREAR_COMUNIDAD.BADGE_PRIVADA' | translate) : ('CREAR_COMUNIDAD.BADGE_PUBLICA' | translate) }}
+            </span>
+          </div>
+          <p>{{ com.descripcion }}</p>
+          <small>{{ 'CREAR_COMUNIDAD.CREADA' | translate }} {{ com.fechaCreacion | date:'mediumDate' }}</small>
+
+          <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+
+            <button class="btn-primary" (click)="invitar(com)" style="padding: 8px 15px; font-size: 14px;">
+              {{ 'CREAR_COMUNIDAD.BTN_INVITAR' | translate }}
+            </button>
+
+            <button (click)="eliminarComunidad(com.id)" style="padding: 8px 15px; font-size: 14px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.2s;">
+              Eliminar
+            </button>
+
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
