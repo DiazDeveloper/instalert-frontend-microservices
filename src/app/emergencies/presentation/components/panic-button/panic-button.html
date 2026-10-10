@@ -1,0 +1,47 @@
+<div class="panic-section">
+  <button class="panic-button-circle" (click)="triggerClick()"></button>
+  <h2 class="panic-title">Botón de pánico</h2>
+  <p class="panic-description">
+    Presiona para notificar a usuarios<br>
+    cercanos y autoridades de una<br>
+    emergencia.
+  </p>
+</div>
+
+@if (showConfirmation) {
+  <div class="modal-backdrop">
+    <div class="modal-container">
+
+      <div class="icon-wrapper">
+        <div class="circle-icon"></div>
+      </div>
+
+      <h2 class="modal-title">¿Confirmar alerta de emergencia?</h2>
+
+      <p class="modal-description">
+        Se notificara a 14 usuarios cercanos y autoridades locales.<br>
+        Tu ubicación será adjuntada.
+      </p>
+
+      <div class="location-box">
+        <h4>Moquegua — Perú</h4>
+        @if (location()) {
+          <p>Lat: {{ location()!.latitude }} | Lon: {{ location()!.longitude }} | Precision: ±{{ location()!.accuracy }}m</p>
+        } @else {
+          <p>Obteniendo ubicación exacta...</p>
+        }
+        <span class="badge-green">GPS capturado automáticamente</span>
+      </div>
+
+      <div class="warning-box">
+        Esta accion alertara servicios de emergencia locales.
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+        <button class="btn-confirm" (click)="confirm()">Enviar Alerta</button>
+      </div>
+
+    </div>
+  </div>
+}

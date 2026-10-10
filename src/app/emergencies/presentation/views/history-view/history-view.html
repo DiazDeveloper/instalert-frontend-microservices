@@ -1,0 +1,10 @@
+<div class="history-container">
+  <div class="history-header">
+    <h2>Historial de Emergencias</h2>
+    <p>Registro completo de las alertas emitidas desde tu dispositivo.</p>
+  </div>
+
+  <div class="history-content">
+    <app-alert-history-list [alerts]="store.alertHistory()"></app-alert-history-list>
+  </div>
+</div>

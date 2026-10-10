@@ -1,0 +1,26 @@
+<table class="history-table">
+  <thead>
+  <tr>
+    <th>Tipo de Incidente</th>
+    <th>Ubicación</th>
+    <th>Hora</th>
+    <th>Estado</th>
+    <th>Acción</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (item of alerts(); track item.id) {
+      <tr>
+        <td>{{ item.type }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.time }}</td>
+        <td><span class="badge" [class]="item.statusClass">{{ item.status }}</span></td>
+        <td>
+          @if (item.status === 'Activa') {
+            <button class="btn-cancel-small" (click)="cancelar(item)">Cancelar</button>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
