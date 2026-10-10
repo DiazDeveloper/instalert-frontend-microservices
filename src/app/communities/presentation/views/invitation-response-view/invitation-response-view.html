@@ -1,0 +1,32 @@
+<div class="invite-container">
+  @if (comunidadAInvitar && !respuestaDada) {
+    <div class="invite-card">
+      <div class="invite-icon">🛡️</div>
+      <h2>{{ 'INVITACION.TITULO' | translate }}</h2>
+      <p>{{ 'INVITACION.MENSAJE1' | translate }} <strong>{{ currentUser?.name }}</strong>{{ 'INVITACION.MENSAJE2' | translate }}</p>
+
+      <div class="community-details">
+        <h3>{{ comunidadAInvitar.nombre }}</h3>
+        <p>{{ comunidadAInvitar.descripcion }}</p>
+      </div>
+
+      <div class="invite-actions">
+        <button class="btn-decline" (click)="rechazar()">{{ 'INVITACION.RECHAZAR' | translate }}</button>
+        <button class="btn-accept" (click)="aceptar()">{{ 'INVITACION.ACEPTAR' | translate }}</button>
+      </div>
+    </div>
+  }
+  @else if (respuestaDada) {
+    <div class="invite-card success">
+      <h2>{{ 'INVITACION.EXITO' | translate }}</h2>
+      <p>{{ 'INVITACION.EXITO_MSG' | translate }}</p>
+    </div>
+  }
+  @else {
+    <div class="invite-card">
+      <div class="invite-icon" style="opacity: 0.5;">📭</div>
+      <h2 style="color: #667781;">No tienes invitaciones</h2>
+      <p>Ve a "Crear Comunidad" y genera un enlace para simular una invitación nueva.</p>
+    </div>
+  }
+</div>

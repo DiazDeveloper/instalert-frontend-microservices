@@ -1,0 +1,51 @@
+<div class="alerts-container">
+  <div class="create-alert-card">
+    <h3>{{ 'ALERTAS.TITULO' | translate }}</h3>
+
+    <div class="form-group">
+      <select [(ngModel)]="newAlertType">
+        <option value="Robo">Robo / Asalto</option>
+        <option value="Sospechoso">Actividad Sospechosa</option>
+        <option value="Médica">Emergencia Médica</option>
+        <option value="Incendio">Incendio</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="newAlertLocation" [placeholder]="'ALERTAS.DONDE' | translate">
+    </div>
+
+    <div class="form-group">
+      <textarea [(ngModel)]="newAlertDescription" [placeholder]="'ALERTAS.DESC' | translate" rows="3"></textarea>
+    </div>
+
+    <button class="btn-danger" (click)="publishAlert()">{{ 'ALERTAS.BTN_EMITIR' | translate }}</button>
+  </div>
+
+  <div class="alerts-feed">
+    <div class="feed-header">
+      <h3>{{ 'ALERTAS.TITULO_MURO' | translate }}</h3>
+      <span class="badge">{{ supportStore.activeAlertsCount() }} {{ 'ALERTAS.ACTIVAS' | translate }}</span>
+    </div>
+
+    @for (alert of supportStore.alerts(); track alert.id) {
+      <div class="alert-card" [class.resolved]="alert.status === 'Atendida'">
+        <div class="alert-header">
+          <span class="alert-type" [ngClass]="alert.type">{{ alert.type }}</span>
+          <span class="alert-time">{{ alert.timestamp | date:'short' }}</span>
+        </div>
+        <p class="alert-location">📍 {{ alert.location }}</p>
+        <p class="alert-desc">{{ alert.description }}</p>
+
+        <div class="alert-footer">
+          <small>{{ 'ALERTAS.REPORTADO_POR' | translate }} {{ alert.userName }}</small>
+          @if (alert.status === 'Activa') {
+            <button class="btn-outline" (click)="attendAlert(alert.id)">✅ Marcar Atendida</button>
+          } @else {
+            <span class="status-badge">✅ {{ 'ALERTAS.ATENDIDA' | translate }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
