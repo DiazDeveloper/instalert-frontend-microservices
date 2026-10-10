@@ -1,0 +1,125 @@
+<div class="page">
+
+  <main class="content">
+
+    <section class="container">
+      <div class="success-alert" *ngIf="success()">
+        <div>
+          <strong>✅ {{ success() }}</strong>
+        </div>
+        <button (click)="dismissMessage()">×</button>
+      </div>
+
+      <div class="error-alert" *ngIf="error()">
+        <div>
+          <strong>⚠️ {{ error() }}</strong>
+        </div>
+        <button (click)="dismissMessage()">×</button>
+      </div>
+
+      <section class="card personal-card">
+        <h3>Información personal</h3>
+        <p>Puedes actualizar tu teléfono y correo. El resto de tus datos no se puede modificar por ahora.</p>
+
+        <div class="personal-grid">
+          <div class="photo-section">
+            <div class="avatar-large">{{ initials }}</div>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              Nombres
+              <input [value]="firstName" disabled />
+            </label>
+
+            <label>
+              Apellidos
+              <input [value]="lastName" disabled />
+            </label>
+
+            <label>
+              Teléfono
+              <input [(ngModel)]="phone" />
+            </label>
+
+            <label>
+              Correo electrónico
+              <input [(ngModel)]="email" type="email" />
+            </label>
+
+            <label>
+              Fecha de nacimiento
+              <input [(ngModel)]="birthDate" type="date" />
+            </label>
+
+
+            <label>
+              Género
+              <select [(ngModel)]="gender">
+                <option value="">Selecciona</option>
+                <option>Femenino</option>
+                <option>Masculino</option>
+                <option>Otro</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Seguridad</h3>
+        <p>Gestiona tu contraseña.</p>
+
+        <div class="security-row" *ngIf="!showPasswordForm">
+          <div class="password-box">
+            <strong>Contraseña</strong>
+            <span>************</span>
+          </div>
+
+          <button class="outline-button" (click)="togglePasswordForm()">🔒 Cambiar contraseña</button>
+        </div>
+
+        <div class="password-form" *ngIf="showPasswordForm">
+          <label>
+            Contraseña actual
+            <input [(ngModel)]="currentPassword" type="password" />
+          </label>
+          <label>
+            Nueva contraseña
+            <input [(ngModel)]="newPassword" type="password" />
+          </label>
+          <label>
+            Confirmar nueva contraseña
+            <input [(ngModel)]="confirmPassword" type="password" />
+          </label>
+
+          <p class="error-text" *ngIf="passwordError">{{ passwordError }}</p>
+
+          <div class="password-actions">
+            <button class="cancel" (click)="togglePasswordForm()">Cancelar</button>
+            <button class="save" (click)="changePassword()">Guardar contraseña</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Preferencias</h3>
+        <p>Personaliza tu experiencia en la aplicación.</p>
+
+        <label class="language-row">
+          <strong>Idioma</strong>
+          <select [(ngModel)]="language">
+            <option>Español</option>
+            <option>English</option>
+          </select>
+        </label>
+      </section>
+
+      <div class="actions">
+        <button class="cancel" (click)="cancel()">Cancelar</button>
+        <button class="save" (click)="saveChanges()">Guardar cambios</button>
+      </div>
+    </section>
+  </main>
+</div>
+
