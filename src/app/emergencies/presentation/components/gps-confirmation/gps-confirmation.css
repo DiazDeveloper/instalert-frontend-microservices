@@ -1,0 +1,267 @@
+.gps-container {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  height: calc(100vh - 120px);
+  font-family: 'Inter', Roboto, sans-serif;
+}
+
+.map-panel {
+  flex: 1;
+  background-color: #1A1E24;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.map-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  background-color: #111418;
+}
+
+.map-grid div {
+  background-color: #1A1E24;
+}
+
+.blue-dot-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue-dot {
+  width: 16px;
+  height: 16px;
+  background-color: #2196F3;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.blue-dot-pulse {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: rgba(33, 150, 243, 0.2);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.floating-card {
+  position: absolute;
+  bottom: 30px;
+  background-color: #111418;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  z-index: 2;
+  width: 320px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00C853;
+  border-radius: 50%;
+}
+
+.status-text {
+  color: #00C853;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card-title {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-details span {
+  color: #8D9AAF;
+  font-size: 11px;
+}
+
+.details-panel {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-subtitle {
+  color: #6C7A8C;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0 0 16px 0;
+}
+
+.data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data-label {
+  color: #8D9AAF;
+  font-size: 13px;
+}
+
+.data-value {
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.precision-indicator {
+  margin-bottom: 24px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: #2A2F35;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 95%;
+  height: 100%;
+  background-color: #00C853;
+}
+
+.precision-text {
+  color: #8D9AAF;
+  font-size: 12px;
+}
+
+.text-green {
+  color: #00C853;
+  font-weight: 600;
+}
+
+.address-box {
+  background-color: #1A1E24;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.address-title {
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.address-subtitle {
+  color: #8D9AAF;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.btn-primary {
+  background-color: #E53935;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #D32F2F;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #8D9AAF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
+}
+
+@media (max-width: 1024px) {
+  .gps-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .map-panel {
+    min-height: 400px;
+  }
+  .details-panel {
+    width: 100%;
+  }
+}

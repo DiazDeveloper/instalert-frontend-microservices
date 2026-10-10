@@ -1,0 +1,138 @@
+<div class="crear-reporte-container">
+
+  <div class="panel form-panel">
+    <h2 class="panel-title"><span class="icon-plus">⊕</span>{{ 'REPORTES.CREAR_NUEVO_REPORTE' | translate }}</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'REPORTES.TIPO_INCIDENTE' | translate }}</label>
+        <div class="custom-select">
+          <select [(ngModel)]="nuevoReporte.tipo" name="tipo" class="dark-select">
+
+            <option value="" disabled hidden>
+              {{ 'REPORTES.SELECCIONAR_TIPO_INCIDENTE' | translate }}
+            </option>
+
+            <option value="Robo / Asalto">
+              {{ 'REPORTES.TIPO_ROBO_ASALTO' | translate }}
+            </option>
+
+            <option value="Persona sospechosa">
+              {{ 'REPORTES.TIPO_PERSONA_SOSPECHOSA' | translate }}
+            </option>
+
+            <option value="Accidente Vial">
+              {{ 'REPORTES.TIPO_ACCIDENTE_VIAL' | translate }}
+            </option>
+
+            <option value="Emergencia Médica">
+              {{ 'REPORTES.TIPO_EMERGENCIA_MEDICA' | translate }}
+            </option>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'REPORTES.FECHA_HORA' | translate }}</label>
+        <input
+          type="datetime-local"
+          class="dark-input"
+          [(ngModel)]="nuevoReporte.fecha"
+          name="fecha">
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'REPORTES.NIVEL_RIESGO' | translate }}</label>
+
+        <div class="custom-select">
+          <select [(ngModel)]="nuevoReporte.severity" name="severity" class="dark-select">
+
+            <option value="" disabled hidden>
+              {{ 'REPORTES.SELECCIONAR_NIVEL_RIESGO' | translate }}
+            </option>
+
+            <option value="low">
+              {{ 'REPORTES.RIESGO_BAJO' | translate }}
+            </option>
+
+            <option value="medium">
+              {{ 'REPORTES.RIESGO_MEDIO' | translate }}
+            </option>
+
+            <option value="high">
+              {{ 'REPORTES.RIESGO_ALTO' | translate }}
+            </option>
+
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'REPORTES.UBICACION_INCIDENTE' | translate }}</label>
+      <div class="map-container-wrapper">
+        <div class="location-badge">
+          <i class="icon-pin"></i> {{ nuevoReporte.ubicacion }}
+        </div>
+
+        <div id="map-form" class="map-render"></div>
+
+        <button class="btn-outline-map" (click)="obtenerUbicacionActual()">
+          {{ 'REPORTES.CENTRAR_UBICACION' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'REPORTES.DESCRIPCION_DETALLADA' | translate }}</label>
+      <textarea
+        class="dark-input"
+        rows="4"
+        [(ngModel)]="nuevoReporte.descripcion"
+        [placeholder]="'REPORTES.DESCRIPCION_PLACEHOLDER' | translate">
+      </textarea>
+    </div>
+  </div>
+
+  <div class="side-panel">
+
+    <div class="panel upload-panel">
+      <label class="section-label">
+        {{ 'REPORTES.EVIDENCIA_MULTIMEDIA' | translate }}
+      </label>
+
+      <div class="upload-dropzone" (click)="fileInput.click()">
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
+        <div class="icon-cloud">☁️</div>
+        <p>{{ 'REPORTES.SUBIR_FOTO' | translate }}</p>
+        <p class="upload-hint">
+          {{ 'REPORTES.FORMATO_FOTO' | translate }}
+        </p>
+      </div>
+
+      @if (previewUrl) {
+        <div class="thumbnails-container">
+          <img [src]="previewUrl" class="thumb-img-preview">
+          <div class="thumb-overlay">✓</div>
+        </div>
+      }
+    </div>
+
+    <button class="btn-publish" (click)="publicarReporte()">
+      ⊳ {{ 'REPORTES.PUBLICAR_REPORTE' | translate }}
+    </button>
+
+    <button class="btn-cancel" routerLink="/app/reportes">
+      ⊗ {{ 'REPORTES.CANCELAR' | translate }}
+    </button>
+
+    <div class="info-box">
+      <span class="icon-info">ⓘ</span>
+      <p>
+        {{ 'REPORTES.INFO_REPORTE_ANONIMO' | translate }}
+      </p>
+    </div>
+
+  </div>
+</div>

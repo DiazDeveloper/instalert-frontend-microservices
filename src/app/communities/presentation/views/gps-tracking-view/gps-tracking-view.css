@@ -1,0 +1,89 @@
+.gps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+.gps-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-top: 5px solid #00a884;
+}
+h2 { color: #111b21; margin-top: 0; }
+p { color: #667781; margin-bottom: 30px; }
+
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+.btn-start { background-color: #00a884; color: white; }
+.btn-start:hover { background-color: #008f72; }
+.btn-stop { background-color: #dc3545; color: white; margin-top: 20px;}
+.btn-stop:hover { background-color: #c82333; }
+
+
+.radar-off {
+  width: 100px; height: 100px;
+  background: #e3e3e3;
+  border-radius: 50%;
+  margin: 0 auto 30px auto;
+}
+
+
+.radar-on {
+  width: 120px; height: 120px;
+  background: rgba(0, 168, 132, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: pulse 1.5s infinite;
+}
+.dot {
+  width: 20px; height: 20px;
+  background: #00a884;
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 168, 132, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 30px rgba(0, 168, 132, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 168, 132, 0); }
+}
+
+
+.live-data {
+  background: #f0f2f5;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+}
+.live-data h3 { margin-top: 0; color: #00a884; font-size: 16px; }
+.coordinates {
+  display: flex;
+  justify-content: space-between;
+  background: #111b21;
+  color: #00ff00;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 16px;
+  margin: 15px 0;
+}
+.live-data small { color: #888; font-style: italic; }
