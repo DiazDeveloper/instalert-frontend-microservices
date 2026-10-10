@@ -1,0 +1,42 @@
+<div class="login-page">
+  <div class="login-container">
+
+    <div class="left-panel">
+      <div class="brand">
+        <span class="shield">!</span>
+        <h1>InstAlert</h1>
+      </div>
+      <p class="tagline">Tu seguridad, nuestra prioridad.</p>
+      <div class="decorative-circle c1"></div>
+      <div class="decorative-circle c2"></div>
+    </div>
+
+    <div class="right-panel">
+      <div class="login-card">
+        <h2>Bienvenido de vuelta</h2>
+        <p class="subtitle">Inicia sesión para continuar</p>
+
+        <div class="input-group">
+          <label>Correo electrónico</label>
+          <input [(ngModel)]="email" type="email" placeholder="tucorreo@email.com"/>
+        </div>
+
+        <div class="input-group">
+          <label>Contraseña</label>
+          <input [(ngModel)]="password" type="password" placeholder="••••••••"/>
+        </div>
+
+        <p class="error" *ngIf="error()">{{ error() }}</p>
+        <p role="status" *ngIf="success()">{{ success() }}</p>
+
+        <button (click)="login()" [disabled]="loading()">{{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}</button>
+
+        <div class="links">
+          <a>Olvidé mi contraseña</a>
+          <a (click)="goToRegister()" style="cursor:pointer">¿No tienes cuenta? <span>Regístrate</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="register-page">
+  <div class="register-container">
+
+    <div class="left-panel">
+      <div class="brand">
+        <span class="shield">!</span>
+        <h1>InstAlert</h1>
+      </div>
+      <p class="tagline">Únete a la comunidad y mantente seguro.</p>
+      <div class="decorative-circle c1"></div>
+      <div class="decorative-circle c2"></div>
+    </div>
+
+    <div class="right-panel">
+      <div class="register-card">
+        <h2>Crear cuenta</h2>
+        <p class="subtitle">Completa tus datos para registrarte</p>
+
+        <div class="row">
+          <div class="input-group">
+            <label>Nombre</label>
+            <input [(ngModel)]="name" type="text" placeholder="Juan"/>
+          </div>
+          <div class="input-group">
+            <label>Apellido</label>
+            <input [(ngModel)]="lastName" type="text" placeholder="Pérez"/>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Correo electrónico</label>
+          <input [(ngModel)]="email" type="email" placeholder="tucorreo@email.com"/>
+        </div>
+
+        <div class="input-group">
+          <label>Contraseña</label>
+          <input [(ngModel)]="password" type="password" placeholder="••••••••"/>
+        </div>
+
+        <div class="input-group">
+          <label>Fecha de nacimiento</label>
+          <input [(ngModel)]="birthDate" type="date"/>
+        </div>
+
+        @if (errorMessage) {
+          <p class="error">{{ errorMessage }}</p>
+        }
+        @if (error()) {
+          <p class="error">{{ error() }}</p>
+        }
+
+        <button (click)="register()" [disabled]="loading()">
+          {{ loading() ? 'Creando cuenta...' : 'Crear cuenta' }}
+        </button>
+
+        <div class="links">
+          <a routerLink="/login">¿Ya tienes cuenta? <span>Inicia sesión</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
