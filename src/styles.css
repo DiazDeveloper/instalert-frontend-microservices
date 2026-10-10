@@ -1,0 +1,13 @@
+@import "leaflet/dist/leaflet.css";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #111418;
+}
+
+.leaflet-container {
+  background: #0a0b12 !important;
+  outline: 0;
+}

@@ -1,0 +1,317 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "María Rodríguez",
+      "email": "maria@instalert.com",
+      "password": "123456",
+      "role": "Ciudadana verificada",
+      "currentLocation": "Miraflores, Lima",
+      "avatar": "",
+      "phone": "987654321"
+    },
+    {
+      "id": 2,
+      "name": "Carlos Mendoza",
+      "email": "carlos@instalert.com",
+      "password": "123456",
+      "role": "Ciudadano verificado",
+      "currentLocation": "San Isidro, Lima",
+      "avatar": "",
+      "phone": "987123456"
+    },
+    {
+      "id": 3,
+      "name": "Ana Torres",
+      "email": "ana@instalert.com",
+      "password": "123456",
+      "role": "Ciudadana verificada",
+      "currentLocation": "Surco, Lima",
+      "avatar": "",
+      "phone": "987000111"
+    }
+  ],
+  "incidents": [
+    {
+      "id": 101,
+      "userId": 1,
+      "type": "Robo a mano armada",
+      "severity": "critical",
+      "timeReported": "2026-05-20T14:32:00.000Z",
+      "address": "Jr. Moquegua 240",
+      "description": "Dos sujetos armados asaltaron a transeúnte.",
+      "status": "ACTIVA",
+      "coordinates": {
+        "lat": -12.121,
+        "lng": -77.029
+      }
+    },
+    {
+      "id": 102,
+      "userId": 2,
+      "type": "Persona sospechosa",
+      "severity": "warning",
+      "timeReported": "2026-05-20T14:20:00.000Z",
+      "address": "Av. Ejército 140",
+      "description": "Observado merodeando edificios residenciales.",
+      "status": "EN REVISIÓN",
+      "coordinates": {
+        "lat": -12.115,
+        "lng": -77.04
+      }
+    },
+    {
+      "id": 103,
+      "userId": 1,
+      "type": "Zona despejada",
+      "severity": "resolved",
+      "timeReported": "2026-05-20T14:04:00.000Z",
+      "address": "Plaza de Armas",
+      "description": "Intervención municipal completada con éxito.",
+      "status": "RESUELTO",
+      "coordinates": {
+        "lat": -12.046,
+        "lng": -77.03
+      }
+    },
+    {
+      "id": 104,
+      "userId": 3,
+      "type": "Accidente Vial",
+      "severity": "closed",
+      "timeReported": "2026-05-20T13:47:00.000Z",
+      "address": "Cruce Av. Balta / Salaverry",
+      "description": "Colisión menor entre dos vehículos.",
+      "status": "CERRADO",
+      "coordinates": {
+        "lat": -12.135,
+        "lng": -77.015
+      }
+    },
+    {
+      "id": 105,
+      "userId": 2,
+      "type": "Vandalismo",
+      "severity": "warning",
+      "timeReported": "2026-05-20T13:00:00.000Z",
+      "address": "Parque Kennedy, Miraflores",
+      "description": "Grafitis en monumentos del parque.",
+      "status": "EN REVISIÓN",
+      "coordinates": {
+        "lat": -12.118,
+        "lng": -77.033
+      }
+    },
+    {
+      "id": 106,
+      "userId": 1,
+      "type": "Robo de vehículo",
+      "severity": "critical",
+      "timeReported": "2026-05-20T12:30:00.000Z",
+      "address": "Av. Larco 740",
+      "description": "Vehículo robado mientras el propietario estaba en el supermercado.",
+      "status": "ACTIVA",
+      "coordinates": {
+        "lat": -12.122,
+        "lng": -77.031
+      }
+    },
+    {
+      "id": 107,
+      "userId": 3,
+      "type": "Pelea callejera",
+      "severity": "warning",
+      "timeReported": "2026-05-19T22:15:00.000Z",
+      "address": "Jr. de la Unión 450",
+      "description": "Grupo de personas en altercado físico.",
+      "status": "RESUELTO",
+      "coordinates": {
+        "lat": -12.048,
+        "lng": -77.032
+      }
+    },
+    {
+      "id": 108,
+      "userId": 2,
+      "type": "Iluminación deficiente",
+      "severity": "info",
+      "timeReported": "2026-05-19T20:00:00.000Z",
+      "address": "Av. República de Panamá 3600",
+      "description": "Zona sin alumbrado público hace tres días.",
+      "status": "EN REVISIÓN",
+      "coordinates": {
+        "lat": -12.107,
+        "lng": -77.017
+      }
+    },
+    {
+      "type": "Emergencia Médica",
+      "severity": "critical",
+      "timeReported": "Ahora",
+      "address": "Ciclovia Comandante Espinar, Miraflores",
+      "description": "URGENCY",
+      "status": "ACTIVA",
+      "coordinates": {
+        "lat": -12.118173233326445,
+        "lng": -77.03699003980736
+      },
+      "fecha": "2026-06-10T21:01:45.177Z",
+      "id": 112
+    },
+    {
+      "type": "Robo / Asalto",
+      "severity": "critical",
+      "timeReported": "Ahora",
+      "address": "Avenida José Pardo 879, Miraflores",
+      "description": "ROBO MANO ARMADA",
+      "status": "ACTIVA",
+      "coordinates": {
+        "lat": -12.119054371895526,
+        "lng": -77.0385347608619
+      },
+      "fecha": "2026-06-10T21:02:40.248Z",
+      "id": 113
+    }
+  ],
+  "emergencies": [
+    {
+      "id": 1,
+      "userId": 1,
+      "type": "Botón de pánico (Emergencia)",
+      "location": "Av. Francisco Masias 251",
+      "time": "14:32",
+      "status": "Cancelada",
+      "statusClass": "badge-canceled",
+      "createdAt": "2026-05-20T14:32:00.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "type": "Botón de pánico (Emergencia)",
+      "location": "Jr. Moquegua 240",
+      "time": "09:15",
+      "status": "Atendida",
+      "statusClass": "badge-resolved",
+      "createdAt": "2026-05-19T09:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "type": "Botón de pánico (Emergencia)",
+      "location": "Av. Larco 740",
+      "time": "22:47",
+      "status": "Cancelada",
+      "statusClass": "badge-canceled",
+      "createdAt": "2026-05-18T22:47:00.000Z"
+    },
+    {
+      "id": 1780464785043,
+      "type": "Botón de pánico (Emergencia)",
+      "location": "Av. Francisco Masias 251",
+      "time": "12:33 AM",
+      "status": "Cancelada",
+      "statusClass": "badge-canceled"
+    }
+  ],
+  "risk-zones": [
+    {
+      "id": 1,
+      "name": "Centro de Lima",
+      "level": "high",
+      "incidentCount": 12,
+      "coordinates": {
+        "lat": -12.046,
+        "lng": -77.03
+      }
+    },
+    {
+      "id": 2,
+      "name": "Miraflores",
+      "level": "medium",
+      "incidentCount": 5,
+      "coordinates": {
+        "lat": -12.12,
+        "lng": -77.03
+      }
+    },
+    {
+      "id": 3,
+      "name": "San Isidro",
+      "level": "low",
+      "incidentCount": 2,
+      "coordinates": {
+        "lat": -12.097,
+        "lng": -77.036
+      }
+    },
+    {
+      "id": 4,
+      "name": "La Victoria",
+      "level": "high",
+      "incidentCount": 18,
+      "coordinates": {
+        "lat": -12.065,
+        "lng": -77.017
+      }
+    },
+    {
+      "id": 5,
+      "name": "Surco",
+      "level": "low",
+      "incidentCount": 3,
+      "coordinates": {
+        "lat": -12.15,
+        "lng": -77
+      }
+    }
+  ],
+  "trusted-contacts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Jorge Rodríguez",
+      "relationship": "Hermano",
+      "phone": "987111222",
+      "email": "jorge@gmail.com",
+      "notifyOnAlert": true
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Lucía Pérez",
+      "relationship": "Amiga",
+      "phone": "987333444",
+      "email": "lucia@gmail.com",
+      "notifyOnAlert": true
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "name": "Roberto Mendoza",
+      "relationship": "Padre",
+      "phone": "987555666",
+      "email": "roberto@gmail.com",
+      "notifyOnAlert": false
+    }
+  ],
+  "support-requests": [
+    {
+      "id": 1,
+      "userId": 1,
+      "type": "Asistencia médica",
+      "description": "Persona mayor necesita ayuda médica.",
+      "location": "Av. Benavides 1200",
+      "status": "PENDIENTE",
+      "createdAt": "2026-05-20T13:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "type": "Apoyo psicológico",
+      "description": "Situación de estrés tras robo.",
+      "location": "Jr. Moquegua 240",
+      "status": "ATENDIDO",
+      "createdAt": "2026-05-19T10:00:00.000Z"
+    }
+  ]
+}

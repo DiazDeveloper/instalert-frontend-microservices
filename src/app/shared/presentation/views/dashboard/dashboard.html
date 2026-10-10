@@ -1,0 +1,101 @@
+<div class="dashboard-container">
+
+  <div class="risk-banner" [class]="'bg-' + riskLevel">
+    <div class="banner-content">
+      @if (riskLevel === 'danger') {
+        <span class="icon">🚨</span>
+        <div>
+          <h3>Alerta Alta</h3>
+          <p>Hay {{ activeEmergenciesCount }} emergencias activas cerca de tu zona. Mantente alerta.</p>
+        </div>
+      } @else if (riskLevel === 'warning') {
+        <span class="icon">⚠️</span>
+        <div>
+          <h3>Precaución Moderada</h3>
+          <p>Hay 1 emergencia activa reportada en tu zona.</p>
+        </div>
+      } @else {
+        <span class="icon">✅</span>
+        <div>
+          <h3>Todo en Calma</h3>
+          <p>No hay emergencias activas reportadas en este momento.</p>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-value text-blue">{{ totalCitizens }}</span>
+      <span class="stat-label">CIUDADANOS<br>REGISTRADOS</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value text-green">{{ resolvedReportsCount }}</span>
+      <span class="stat-label">ALERTAS RESUELTAS<br>EN TOTAL</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value text-purple">{{ totalCommunities }}</span>
+      <span class="stat-label">COMUNIDADES<br>CONECTADAS</span>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <div class="left-panel">
+      <div class="card map-card">
+        <div class="card-header">
+          <h4>Mapa de Calor Local</h4>
+          <span class="badge">Últimas 24h</span>
+        </div>
+        <div id="dashboard-map" style="width:100%; height:300px; border-radius: 0 0 12px 12px;"></div>
+      </div>
+
+      <div class="action-stack">
+        <button class="btn-main btn-panic-dash" routerLink="/boton-panico">
+          🚨 IR AL BOTÓN DE PÁNICO
+        </button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+
+      <div class="card feed-card">
+        <div class="card-header">
+          <h4>Reportes Recientes</h4>
+          <a class="link" routerLink="/reportes">Ver todos</a>
+        </div>
+        <div class="list-content">
+          @for (report of recentReports; track report.id) {
+            <div class="report-item">
+              <div class="indicator" [class]="'sev-' + report.severity"></div>
+              <div class="item-info">
+                <h5>{{ report.type }}</h5>
+                <p>{{ report.location }}</p>
+              </div>
+              <span class="time">{{ report.time }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="contacts-section">
+        <h4 class="section-title">CONTACTOS</h4>
+        <div class="contacts-list">
+          @for (contact of nearbyContacts; track contact.id) {
+            <div class="contact-card">
+              <div class="avatar">{{ contact.avatar }}</div>
+              <div class="contact-info">
+                <h5>{{ contact.name }}</h5>
+                <p>{{ contact.role }}</p>
+              </div>
+            </div>
+          }
+          @if (nearbyContacts.length === 0) {
+            <p style="color:#6b7280; font-size:13px;">No hay contactos disponibles.</p>
+          }
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

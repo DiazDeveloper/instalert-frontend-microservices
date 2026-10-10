@@ -1,0 +1,205 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Inter', Roboto, sans-serif;
+}
+
+/* --- BANNER DE RIESGO --- */
+.risk-banner {
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bg-safe { background-color: rgba(0, 200, 83, 0.1); border-color: rgba(0, 200, 83, 0.3); }
+.bg-warning { background-color: rgba(255, 179, 0, 0.1); border-color: rgba(255, 179, 0, 0.3); }
+.bg-danger { background-color: rgba(229, 57, 53, 0.1); border-color: rgba(229, 57, 53, 0.3); }
+
+.banner-content { display: flex; align-items: center; gap: 16px; }
+.banner-content .icon { font-size: 24px; }
+.bg-safe .icon { color: #00C853; }
+.bg-warning .icon { color: #FFB300; }
+.bg-danger .icon { color: #E53935; }
+
+.banner-content h3 { color: #FFFFFF; margin: 0 0 4px 0; font-size: 16px; }
+.banner-content p { color: #8D9AAF; margin: 0; font-size: 13px; }
+
+/* --- TARJETAS DE ESTADÍSTICAS SUPERIORES --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background-color: #1A1E24;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.text-blue { color: #2196F3; }
+.text-green { color: #00C853; }
+.text-purple { color: #9C27B0; }
+.stat-label { color: #8D9AAF; font-size: 11px; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* --- GRILLA PRINCIPAL --- */
+.main-grid {
+  display: flex;
+  gap: 24px;
+}
+
+.left-panel { flex: 1.2; display: flex; flex-direction: column; gap: 20px; }
+.right-panel { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+
+.card {
+  background-color: #1A1E24;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.card-header h4 { color: #FFFFFF; font-size: 14px; margin: 0; }
+.badge { background-color: #2A2F35; color: #8D9AAF; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+.link { color: #2196F3; font-size: 12px; font-weight: 600; text-decoration: none; cursor: pointer; }
+.link:hover { text-decoration: underline; }
+
+/* --- MAPA DE CALOR --- */
+.map-view {
+  height: 220px;
+  background-color: #111418;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Fondo simulando calor para no dejarlo vacío */
+  background-image:
+    radial-gradient(circle at 60% 50%, rgba(229, 57, 53, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 30% 60%, rgba(255, 179, 0, 0.1) 0%, transparent 50%);
+}
+
+.user-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background-color: #2196F3; border: 2px solid #FFFFFF; border-radius: 50%; z-index: 2; }
+.pulse { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background-color: rgba(33, 150, 243, 0.3); border-radius: 50%; z-index: -1; }
+
+/* --- BOTONES DE ACCIÓN (Columna Izquierda) --- */
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-secondary, .btn-main {
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1A1E24;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { background-color: #2A2F35; }
+
+.btn-route {
+  border-color: #2196F3;
+  color: #2196F3;
+  background-color: rgba(33, 150, 243, 0.05);
+}
+.btn-route:hover { background-color: rgba(33, 150, 243, 0.1); }
+
+/* Botón de Pánico - Borde 3px solicitado */
+.btn-panic-dash {
+  border: 3px solid #E53935;
+  color: #E53935;
+  background-color: rgba(229, 57, 53, 0.05);
+}
+.btn-panic-dash:hover { background-color: rgba(229, 57, 53, 0.1); }
+
+/* --- FEED DE REPORTES --- */
+.feed-card { flex: 1; display: flex; flex-direction: column; }
+.list-content { display: flex; flex-direction: column; gap: 12px; }
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #111418;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.indicator { width: 4px; height: 24px; border-radius: 2px; }
+.sev-high { background-color: #E53935; }
+.sev-medium { background-color: #FFB300; }
+.sev-low { background-color: #00C853; }
+
+.item-info { flex: 1; }
+.item-info h5 { color: #FFFFFF; font-size: 13px; margin: 0 0 4px 0; }
+.item-info p { color: #8D9AAF; font-size: 11px; margin: 0; }
+.time { color: #6C7A8C; font-size: 10px; white-space: nowrap; }
+
+/* --- CONTACTOS CONECTADOS (HU-06) --- */
+.contacts-section { display: flex; flex-direction: column; gap: 12px; }
+.section-title { color: #6C7A8C; font-size: 10px; font-weight: 700; letter-spacing: 1px; margin: 0; text-transform: uppercase; }
+.contacts-list { display: flex; flex-direction: column; gap: 10px; }
+
+.contact-card {
+  background-color: #1A1E24;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left-width: 4px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #2A2F35;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.contact-info { flex: 1; }
+.contact-info h5 { color: #FFFFFF; font-size: 13px; margin: 0 0 2px 0; }
+.contact-info p { color: #8D9AAF; font-size: 11px; margin: 0; }
+
+.risk-badge { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; }
+
+.risk-high { border-left-color: #E53935; }
+.risk-high .risk-badge { background-color: rgba(229, 57, 53, 0.1); color: #E53935; }
+
+.risk-medium { border-left-color: #FFB300; }
+.risk-medium .risk-badge { background-color: rgba(255, 179, 0, 0.1); color: #FFB300; }
+
+.risk-low { border-left-color: #00C853; }
+.risk-low .risk-badge { background-color: rgba(0, 200, 83, 0.1); color: #00C853; }
+
+@media (max-width: 1100px) {
+  .main-grid { flex-direction: column; }
+}

@@ -1,0 +1,26 @@
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #8D9AAF;
+  font-weight: 500;
+}
+
+.lang-toggle span {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.lang-toggle span:hover {
+  color: #FFFFFF;
+}
+
+.lang-toggle span.active {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.separator {
+  cursor: default;
+}
