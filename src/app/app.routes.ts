@@ -31,6 +31,13 @@ export const routes: Routes = [
       import('./shared/presentation/components/layout/layout').then((m) => m.Layout),
     children: [
       {
+        path: 'avisos',
+        loadComponent: () =>
+          import('./communities/presentation/views/notifications/notifications').then(
+            (m) => m.NotificationsView,
+          ),
+      },
+      {
         path: 'dashboard',
         loadComponent: () =>
           import('./shared/presentation/views/dashboard/dashboard').then(

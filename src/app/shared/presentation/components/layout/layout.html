@@ -1,7 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-
   <mat-sidenav #drawer class="sidebar" mode="side" [opened]="true" fixedInViewport>
-
     <div class="logo-container">
       <div class="logo-box"></div>
       <div class="logo-text">
@@ -13,10 +11,11 @@
     <div class="nav-section">
       <div class="section-title">{{ 'SIDEBAR.MAIN' | translate }}</div>
 
-      <mat-nav-list>
-        <a mat-list-item routerLink="/app/dashboard" routerLinkActive="active-link">
-          Dashboard
-        </a>
+      <mat-nav-list
+        ><a mat-list-item routerLink="/app/avisos" routerLinkActive="active-link"
+          >Avisos y contactos</a
+        >
+        <a mat-list-item routerLink="/app/dashboard" routerLinkActive="active-link"> Dashboard </a>
 
         <a mat-list-item routerLink="/app/boton-panico" routerLinkActive="active-link">
           {{ 'SIDEBAR.PANIC_BUTTON' | translate }}
@@ -27,9 +26,9 @@
           routerLink="/app/reportes"
           [ngClass]="{
             'active-link':
-              router.url.startsWith('/app/reportes') ||
-              router.url.startsWith('/app/crear-reporte')
-          }">
+              router.url.startsWith('/app/reportes') || router.url.startsWith('/app/crear-reporte'),
+          }"
+        >
           {{ 'SIDEBAR.REPORTS' | translate }}
         </a>
 
@@ -40,7 +39,6 @@
         <a mat-list-item routerLink="/app/perfil" routerLinkActive="active-link">
           {{ 'SIDEBAR.PROFILE' | translate }}
         </a>
-
       </mat-nav-list>
     </div>
 
@@ -56,11 +54,9 @@
         <span>⏻</span>
       </button>
     </div>
-
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content">
-
     <mat-toolbar class="top-header">
       <span class="header-title">{{ title }}</span>
       <span class="spacer"></span>
@@ -70,7 +66,5 @@
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
-
   </mat-sidenav-content>
-
 </mat-sidenav-container>
