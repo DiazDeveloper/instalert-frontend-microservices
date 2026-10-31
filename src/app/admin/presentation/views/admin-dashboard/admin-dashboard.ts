@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
+import { EmergencyHttpAdapter } from '../../../../emergencies/infrastructure/adapters/emergency-http.adapter';
+import { AlertHistory } from '../../../../emergencies/domain/entities/emergency-alert.entity';
 import { UserStore } from '../../../../account/application/user-store';
 
 interface UserAdmin {
@@ -27,15 +29,7 @@ interface IncidentAdmin {
   timeReported: string;
 }
 
-interface EmergencyAdmin {
-  id: number;
-  userId: number;
-  type: string;
-  location: string;
-  time: string;
-  status: string;
-  statusClass: string;
-}
+type EmergencyAdmin = AlertHistory;
 
 interface CommunityAdmin {
   id: number;
@@ -54,6 +48,7 @@ interface CommunityAdmin {
 })
 export class AdminDashboardComponent implements OnInit {
   private http = inject(HttpClient);
+  private emergencyApi = inject(EmergencyHttpAdapter);
   private router = inject(Router);
   private userStore = inject(UserStore);
 
@@ -184,8 +179,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadEmergencies(): void {
-    this.http.get<EmergencyAdmin[]>(this.emergenciesUrl).subscribe({
-      next: (data) => this.emergencies.set(data.reverse()),
+    this.emergencyApi.getHistory().subscribe({
+      next: (data) => this.emergencies.set(data),
       error: () => console.error('Error cargando emergencias'),
     });
   }
@@ -262,15 +257,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   cancelEmergency(emergency: EmergencyAdmin): void {
-    this.http
-      .patch(`${this.emergenciesUrl}/${emergency.id}`, {
-        status: 'Cancelada',
-        statusClass: 'badge-canceled',
-      })
-      .subscribe({
-        next: () => this.loadEmergencies(),
-        error: () => console.error('Error cancelando emergencia'),
-      });
+    this.emergencyApi.updateEmergencyStatus(emergency.id, 'Cancelada', 'badge-canceled').subscribe({
+      next: () => this.loadEmergencies(),
+      error: () => console.error('Error cancelando emergencia'),
+    });
   }
 
   deleteCommunity(id: number): void {

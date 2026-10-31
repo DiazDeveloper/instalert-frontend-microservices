@@ -20,7 +20,7 @@ import { NgClass } from '@angular/common';
     ActiveAlertStatusComponent,
     AlertHistoryListComponent,
     EmergencyMapComponent,
-    NgClass
+    NgClass,
   ],
   templateUrl: './emergencies-view.html',
   styleUrl: './emergencies-view.css',
@@ -35,7 +35,7 @@ export class EmergenciesViewComponent implements OnInit {
   public totalUsers = 0;
   public totalActiveAlertsCount = 0;
   public gpsPrecision = '0';
-  public avgResponseTime = '1:45';
+  public avgResponseTime = 'Sin medición';
 
   constructor() {
     effect(() => {
@@ -64,6 +64,9 @@ export class EmergenciesViewComponent implements OnInit {
     try {
       await this.store.requestLocation();
     } catch (error) {
+      this.store.error.set(
+        error instanceof Error ? error.message : 'No se pudo obtener la ubicación.',
+      );
     } finally {
       this.isFetchingLocation = false;
     }
@@ -87,24 +90,35 @@ export class EmergenciesViewComponent implements OnInit {
   }
 
   loadDashboardData() {
-    this.authApi.getCount().subscribe(result => {
+    this.authApi.getCount().subscribe((result) => {
       this.totalUsers = result.count;
     });
 
-    this.reporteService.getReportes().subscribe(reportes => {
-      const active = reportes.filter(r => 
-        r.status === 'ACTIVE' || r.statusText === 'ACTIVA' || 
-        r.severity === 'HIGH' || r.severity === 'CRITICAL' || r.severity === 'WARNING'
-      ).slice(0, 3);
+    this.reporteService.getReportes().subscribe((reportes) => {
+      const active = reportes
+        .filter(
+          (r) =>
+            r.status === 'ACTIVE' ||
+            r.statusText === 'ACTIVA' ||
+            r.severity === 'HIGH' ||
+            r.severity === 'CRITICAL' ||
+            r.severity === 'WARNING',
+        )
+        .slice(0, 3);
 
-      this.activeIncidents = active.map(r => {
+      this.activeIncidents = active.map((r) => {
         const myLoc = this.store.currentLocation();
         const incLat = r.latitude || r.coords?.[0];
         const incLng = r.longitude || r.coords?.[1];
         let distanceStr = 'Distancia desconocida';
 
         if (myLoc && incLat && incLng) {
-          const distKm = this.getDistanceFromLatLonInKm(myLoc.latitude, myLoc.longitude, incLat, incLng);
+          const distKm = this.getDistanceFromLatLonInKm(
+            myLoc.latitude,
+            myLoc.longitude,
+            incLat,
+            incLng,
+          );
           distanceStr = distKm < 1 ? `A ${Math.floor(distKm * 1000)}m` : `A ${distKm.toFixed(1)}km`;
         }
 
@@ -113,7 +127,7 @@ export class EmergenciesViewComponent implements OnInit {
           title: r.type || r.tipo,
           locationStr: `${r.address || r.direccion} • ${distanceStr} • ${this.formatTimeAgo(r.timeReported || r.tiempo)}`,
           severityClass: this.mapSeverityToClass(r.severity || r.nivelRiesgo),
-          statusText: r.statusText || 'En Curso'
+          statusText: r.statusText || 'En Curso',
         };
       });
 
@@ -122,13 +136,13 @@ export class EmergenciesViewComponent implements OnInit {
   }
 
   calculateActiveAlertsCount(history: any[]) {
-    const activeEmergencies = history.filter(a => a.status === 'Activa').length;
-    this.totalActiveAlertsCount = activeEmergencies + this.activeIncidents.length;
+    const activeEmergencies = history.filter((a) => a.status === 'Activa').length;
+    this.totalActiveAlertsCount = activeEmergencies;
   }
 
   calculateGpsPrecision() {
     const acc = this.store.currentLocation()?.accuracy || 100;
-    const precision = Math.max(50, 100 - (acc / 5)); 
+    const precision = acc;
     this.gpsPrecision = precision.toFixed(1);
   }
 
@@ -146,7 +160,8 @@ export class EmergenciesViewComponent implements OnInit {
   private mapSeverityToClass(severity: string) {
     const s = severity?.toLowerCase();
     if (s === 'high' || s === 'critical' || s === 'red') return { bg: 'bg-red', text: 'st-red' };
-    if (s === 'medium' || s === 'warning' || s === 'orange') return { bg: 'bg-yellow', text: 'st-yellow' };
+    if (s === 'medium' || s === 'warning' || s === 'orange')
+      return { bg: 'bg-yellow', text: 'st-yellow' };
     return { bg: 'bg-green', text: 'st-green' };
   }
 
@@ -156,10 +171,12 @@ export class EmergenciesViewComponent implements OnInit {
     const dLon = this.deg2rad(lon2 - lon1);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.cos(this.deg2rad(lat1)) *
+        Math.cos(this.deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; 
+    return R * c;
   }
 
   private deg2rad(deg: number) {

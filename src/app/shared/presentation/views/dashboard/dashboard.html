@@ -6,19 +6,19 @@
         <span class="icon">🚨</span>
         <div>
           <h3>Alerta Alta</h3>
-          <p>Hay {{ activeEmergenciesCount }} emergencias activas cerca de tu zona. Mantente alerta.</p>
+          <p>Hay {{ activeEmergenciesCount }} alertas activas en tu cuenta.</p>
         </div>
       } @else if (riskLevel === 'warning') {
         <span class="icon">⚠️</span>
         <div>
           <h3>Precaución Moderada</h3>
-          <p>Hay 1 emergencia activa reportada en tu zona.</p>
+          <p>Tienes una alerta activa en tu cuenta.</p>
         </div>
       } @else {
         <span class="icon">✅</span>
         <div>
           <h3>Todo en Calma</h3>
-          <p>No hay emergencias activas reportadas en este momento.</p>
+          <p>No tienes alertas activas en este momento.</p>
         </div>
       }
     </div>

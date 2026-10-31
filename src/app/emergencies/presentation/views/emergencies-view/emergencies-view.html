@@ -1,4 +1,6 @@
-@if (store.permissionState() === 'granted' && !store.locationConfirmed()) {
+@if (store.error()) { <p role="alert">{{ store.error() }}</p> }
+@if (store.busy()) { <p role="status">Confirmando operación...</p> }
+@if (store.dashboardState() === 'idle' && store.permissionState() === 'granted' && !store.locationConfirmed()) {
   <app-gps-confirmation
     [latitude]="store.currentLocation()?.latitude"
     [longitude]="store.currentLocation()?.longitude"
@@ -10,7 +12,7 @@
   </app-gps-confirmation>
 }
 
-@if (store.permissionState() === 'granted' && store.locationConfirmed()) {
+@if ((store.permissionState() === 'granted' && store.locationConfirmed()) || store.dashboardState() !== 'idle') {
   @if (store.dashboardState() === 'idle') {
     <div class="dashboard-layout">
       <div class="left-column">
@@ -24,7 +26,7 @@
         </app-panic-button>
 
         <div class="location-card">
-          <h3>Moquegua, Perú</h3>
+          <h3>Ubicación actual</h3>
           <div class="loc-details">Lat: {{ store.currentLocation()?.latitude }} | Lon: {{ store.currentLocation()?.longitude }} | Precision: ±{{ store.currentLocation()?.accuracy }}m</div>
           <div class="loc-badge">GPS capturado automáticamente</div>
         </div>
@@ -36,10 +38,10 @@
           </div>
           <div class="stat-card">
             <span class="stat-value text-orange">{{ totalUsers }}</span>
-            <span class="stat-label">Usuarios<br>en Zona</span>
+            <span class="stat-label">Usuarios<br>registrados</span>
           </div>
           <div class="stat-card">
-            <span class="stat-value text-green">{{ gpsPrecision }}%</span>
+            <span class="stat-value text-green">±{{ gpsPrecision }}m</span>
             <span class="stat-label">GPS<br>Precisión</span>
           </div>
           <div class="stat-card">
@@ -57,7 +59,7 @@
       <div class="right-column">
         <div class="radar-panel">
           <div class="radar-header">
-            <span class="radar-badge dark">Moquegua, PE</span>
+            <span class="radar-badge dark">Mapa local</span>
             <span class="radar-badge alert">⚠️ Mapa en tiempo real</span>
           </div>
 
@@ -74,11 +76,11 @@
         </div>
 
         <div class="active-alerts-section">
-          <div class="section-header">ALERTAS ACTIVAS EN ZONA</div>
+          <div class="section-header">INCIDENTES REGISTRADOS</div>
           <div class="alerts-list">
-            
+
             @if (activeIncidents.length === 0) {
-              <p style="color: #8D9AAF; font-size: 12px; padding: 10px 0;">No se registran incidentes activos en tu zona por el momento.</p>
+              <p style="color: #8D9AAF; font-size: 12px; padding: 10px 0;">No hay incidentes disponibles por el momento.</p>
             }
 
             @for (inc of activeIncidents; track inc.id) {
@@ -91,7 +93,7 @@
                 <div class="alert-status" [ngClass]="inc.severityClass.text">{{ inc.statusText }}</div>
               </div>
             }
-            
+
           </div>
         </div>
       </div>
@@ -99,14 +101,14 @@
   }
 
   @if (store.dashboardState() === 'active') {
-    <app-active-alert-status (onCancelAlert)="handleCancelAlert()"></app-active-alert-status>
+    <app-active-alert-status [alert]="store.activeAlert()" (onCancelAlert)="handleCancelAlert()"></app-active-alert-status>
   }
 
   @if (store.dashboardState() === 'canceled') {
     <div class="canceled-view-container">
       <div class="canceled-banner">
         <span class="check-icon">✓</span>
-        Alerta cancelada — Aviso enviado a 14 usuarios y autoridades — {{ store.lastCanceledTime() }}
+        Alerta cancelada — Cancelación registrada — {{ store.lastCanceledTime() }}
       </div>
 
       <div class="dashboard-layout">
@@ -114,14 +116,14 @@
           <div class="canceled-panel">
             <div class="dark-circle"></div>
             <h2 class="canceled-title">ALARMA CANCELADA</h2>
-            <p class="canceled-subtitle">{{ store.lastCanceledTime() }} — Aviso de cancelacion enviado</p>
+            <p class="canceled-subtitle">{{ store.lastCanceledTime() }} — Cancelación registrada</p>
 
             <div class="notifications-box">
-              <h4 class="box-header">NOTIFICACIONES DE CANCELACION</h4>
+              <h4 class="box-header">ESTADO DE CANCELACIÓN</h4>
               <ul class="notifications-list">
-                <li>14 usuarios notificados de cancelacion</li>
-                <li>Comisaria de Moquegua informada</li>
-                <li>Serenazgo Municipal informado</li>
+                <li>Cancelación guardada en el historial</li>
+
+
                 <li>Registrada como Cancelada en historial</li>
               </ul>
             </div>
@@ -141,16 +143,18 @@
   }
 }
 
-@if (store.permissionState() === 'pending') {
+@if (store.dashboardState() === 'idle' && store.permissionState() === 'pending') {
   <app-location-permission-modal
     [modalState]="'request'"
     (onDecision)="handlePermissionDecision($event)">
   </app-location-permission-modal>
 }
 
-@if (store.permissionState() === 'denied') {
-  <app-location-permission-modal
-    [modalState]="'denied'"
-    (onDecision)="handlePermissionDecision($event)">
-  </app-location-permission-modal>
+@if (store.dashboardState() === 'idle' && store.permissionState() === 'denied') {
+  <section>
+    <h2>Ubicación pendiente</h2>
+    <p>Para crear una nueva alerta, permite la ubicación. Puedes consultar tu historial sin activarla.</p>
+    <button (click)="handlePermissionDecision(true)">Volver a solicitar ubicación</button>
+    <app-alert-history-list [alerts]="store.alertHistory()"></app-alert-history-list>
+  </section>
 }

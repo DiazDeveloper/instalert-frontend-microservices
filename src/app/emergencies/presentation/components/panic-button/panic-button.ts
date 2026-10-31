@@ -14,7 +14,7 @@ export class PanicButtonComponent {
   showConfirmation = false;
 
   triggerClick() {
-    this.showConfirmation = true;
+    this.alertConfirmed.emit();
   }
 
   cancel() {

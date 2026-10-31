@@ -1,6 +1,6 @@
 import { Component, input, inject } from '@angular/core';
 import { AlertHistory } from '../../../domain/entities/emergency-alert.entity';
-import { EmergencyHttpAdapter } from '../../../infrastructure/adapters/emergency-http.adapter';
+import { PanicButtonStore } from '../../../application/state/panic-button.store';
 
 @Component({
   selector: 'app-alert-history-list',
@@ -11,15 +11,8 @@ import { EmergencyHttpAdapter } from '../../../infrastructure/adapters/emergency
 })
 export class AlertHistoryListComponent {
   alerts = input<AlertHistory[]>([]);
-  private httpAdapter = inject(EmergencyHttpAdapter);
-
+  private store = inject(PanicButtonStore);
   cancelar(item: AlertHistory) {
-    this.httpAdapter.updateEmergencyStatus(item.id, 'Cancelada', 'badge-canceled').subscribe({
-      next: (updated) => {
-        item.status = updated.status;
-        item.statusClass = updated.statusClass;
-      },
-      error: (err) => console.error('Error al cancelar:', err),
-    });
+    void this.store.cancelAlert(item.id);
   }
 }

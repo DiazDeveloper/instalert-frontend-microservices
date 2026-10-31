@@ -131,7 +131,7 @@
     <!-- Emergencies section -->
     <div class="section-card" *ngIf="activeSection() === 'emergencies'">
       <div class="section-header">
-        <h3>Gestión de Emergencias</h3>
+        <h3>Mis emergencias</h3>
         <button class="refresh-btn" (click)="loadEmergencies()">↻ Actualizar</button>
       </div>
 
@@ -150,7 +150,7 @@
         <tbody>
         <tr *ngFor="let emergency of emergencies()">
           <td>{{ emergency.id }}</td>
-          <td>{{ emergency.userId }}</td>
+          <td>{{ emergency.accountId }}</td>
           <td>{{ emergency.type }}</td>
           <td>{{ emergency.location }}</td>
           <td>{{ emergency.time }}</td>
@@ -174,7 +174,7 @@
       </table>
 
       <p *ngIf="emergencies().length === 0" style="color:#6b7280; font-size:13px; padding: 12px;">
-        No hay emergencias registradas.
+        No tienes emergencias registradas.
       </p>
     </div>
     <!-- Communities section -->

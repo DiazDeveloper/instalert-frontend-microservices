@@ -1,6 +1,7 @@
 import { Component, inject, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { EmergencyHttpAdapter } from '../../../../emergencies/infrastructure/adapters/emergency-http.adapter';
 import { PanicButtonStore } from '../../../../emergencies/application/state/panic-button.store';
 import { environment } from '../../../../../environments/environment';
 import * as L from 'leaflet';
@@ -38,6 +39,7 @@ interface EmergencySummary {
 export class DashboardViewComponent implements AfterViewInit, OnDestroy {
   public store = inject(PanicButtonStore);
   private http = inject(HttpClient);
+  private emergencies = inject(EmergencyHttpAdapter);
   private cdr = inject(ChangeDetectorRef);
 
   riskLevel: 'safe' | 'warning' | 'danger' = 'safe';
@@ -65,31 +67,17 @@ export class DashboardViewComponent implements AfterViewInit, OnDestroy {
   }
 
   private loadUsersSummary(): void {
-    const url = `${environment.serverBaseUrl}${environment.apiBasePath}${environment.usersEndpointPath}`;
-    this.http.get<UserSummary[]>(url).subscribe({
-      next: (users) => {
-        this.totalCitizens = users.length;
-
-        const currentUser = JSON.parse(localStorage.getItem('instalert_user') || '{}');
-        this.nearbyContacts = users
-          .filter((u) => u.id !== currentUser.id)
-          .slice(0, 3)
-          .map((u) => ({
-            id: u.id,
-            name: u.name,
-            avatar: (u.name || '')
-              .split(' ')
-              .map((n) => n[0])
-              .join('')
-              .toUpperCase()
-              .slice(0, 2),
-            role: u.role,
-          }));
-
-        this.cdr.detectChanges();
-      },
-      error: (err) => console.error('Error cargando usuarios', err),
-    });
+    this.http
+      .get<{
+        count: number;
+      }>(`${environment.serverBaseUrl}${environment.apiBasePath}/account/count`)
+      .subscribe({
+        next: (result) => {
+          this.totalCitizens = result.count;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Error cargando total de cuentas', err),
+      });
   }
 
   private loadCommunitiesCount(): void {
@@ -105,7 +93,7 @@ export class DashboardViewComponent implements AfterViewInit, OnDestroy {
 
   private loadActiveEmergencies(): void {
     const url = `${environment.serverBaseUrl}${environment.apiBasePath}/emergencies`;
-    this.http.get<EmergencySummary[]>(url).subscribe({
+    this.emergencies.getHistory().subscribe({
       next: (emergencies) => {
         const active = emergencies.filter((e) => e.status === 'Activa');
         this.activeEmergenciesCount = active.length;
