@@ -12,11 +12,11 @@ export class Geolocation {
     accuracy?: number,
     address?: string,
   ): Geolocation {
-    if (latitude < -90 || latitude > 90) {
+    if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
       throw new Error(`Latitud inválida (${latitude}). Debe estar entre -90 y 90.`);
     }
 
-    if (longitude < -180 || longitude > 180) {
+    if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
       throw new Error(`Longitud inválida (${longitude}). Debe estar entre -180 y 180.`);
     }
 

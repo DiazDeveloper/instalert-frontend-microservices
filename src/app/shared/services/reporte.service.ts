@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { EmergencyHttpAdapter } from '../../emergencies/infrastructure/adapters/emergency-http.adapter';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReporteService {
+  private emergencies = inject(EmergencyHttpAdapter);
   private incidentsUrl = `${environment.serverBaseUrl}${environment.apiBasePath}${environment.incidentsEndpointPath}`;
   private riskZonesUrl = `${environment.serverBaseUrl}${environment.apiBasePath}${environment.riskZonesEndpointPath}`;
 
@@ -21,9 +23,7 @@ export class ReporteService {
   }
 
   getEmergencies(): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${environment.serverBaseUrl}${environment.apiBasePath}/emergencies`,
-    );
+    return this.emergencies.getHistory();
   }
 
   crearReporte(reporte: any): Observable<any> {

@@ -1,5 +1,4 @@
 <div class="active-alert-container">
-
   <div class="alert-banner">
     <div class="banner-text">
       <span class="red-dot"></span>
@@ -9,22 +8,20 @@
   </div>
 
   <div class="alert-layout">
-
     <div class="left-column">
       <div class="status-circle-container">
         <div class="green-circle"></div>
       </div>
 
       <h2 class="status-title">ALERTA ACTIVA</h2>
-      <p class="status-subtitle">Alerta enviada correctamente</p>
+      <p class="status-subtitle">Alerta registrada correctamente</p>
       <p class="status-time">{{ currentTime }}</p>
 
       <div class="notifications-box">
-        <h4 class="box-header">NOTIFICACIONES ENVIADAS</h4>
+        <h4 class="box-header">ESTADO DEL AVISO</h4>
         <ul class="notifications-list">
-          <li>Autoridades locales</li>
-          <li>Serenazgo Municipal</li>
-          <li>Contactos de emergencia</li>
+          <li>Alerta guardada en tu historial</li>
+          <li>Avisos en cola para tus contactos de confianza aceptados</li>
         </ul>
       </div>
 
@@ -34,17 +31,18 @@
     <div class="right-column">
       <div class="map-panel">
         <div class="map-badge-alert">EMERGENCIA ACTIVA</div>
-        <div id="active-alert-map" style="width:100%; height:350px; border-radius: 0 0 12px 12px;"></div>
+        <div
+          id="active-alert-map"
+          style="width: 100%; height: 350px; border-radius: 0 0 12px 12px"
+        ></div>
       </div>
     </div>
-
   </div>
 </div>
 
 @if (showCancelModal) {
   <div class="modal-backdrop">
     <div class="modal-container-warning">
-
       <div class="icon-warning-wrapper">
         <div class="circle-icon-warning">⚠️</div>
       </div>
@@ -52,17 +50,17 @@
       <h2 class="modal-title">¿Cancelar la alerta activa?</h2>
 
       <p class="modal-description">
-        Las autoridades y contactos notificados<br>
-        recibirán un aviso de cancelación inmediatamente.
+        La alerta quedará cancelada en tu historial.<br />
+        Tus contactos aceptados pueden consultar los avisos en la bandeja de la aplicación.
       </p>
 
       <div class="warning-text-box">
-        Esta accion quedara registrada en el historial.<br>
+        Esta accion quedara registrada en el historial.<br />
         El uso indebido puede tener consecuencias.
       </div>
 
       <div class="info-text-box">
-        Alerta activa desde: {{ startTimeStr }}<br>
+        Alerta activa desde: {{ startTimeStr }}<br />
         Duracion actual: {{ fullDurationStr }}
       </div>
 
@@ -70,7 +68,6 @@
         <button class="btn-keep" (click)="abortCancel()">Mantener alerta</button>
         <button class="btn-confirm-cancel" (click)="confirmCancel()">Sí, cancelar</button>
       </div>
-
     </div>
   </div>
 }
