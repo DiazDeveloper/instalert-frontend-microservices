@@ -1,30 +1,24 @@
 import { AlertHistory } from '../../domain/entities/emergency-alert.entity';
 import { EmergencyRequestDto } from '../../application/dto/emergency-request.dto';
-
 export class EmergencyMapper {
   static toEntity(dto: EmergencyRequestDto): AlertHistory {
     return {
-      id: dto.id || Date.now(),
-      userId: dto.userId,
-      type: dto.type,
-      location: dto.location,
-      time: dto.time,
-      status: dto.status,
-      statusClass: dto.statusClass,
-      createdAt: dto.createdAt,
+      ...dto,
+      location: `Lat: ${dto.latitude.toFixed(4)} | Lon: ${dto.longitude.toFixed(4)}`,
+      time: new Date(dto.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      status: dto.status === 'ACTIVE' ? 'Activa' : 'Cancelada',
+      statusClass: dto.status === 'ACTIVE' ? 'badge-active' : 'badge-canceled',
     };
   }
-
-  static toDto(entity: Partial<AlertHistory>): EmergencyRequestDto {
-    if (!entity.userId || entity.userId <= 0) throw new Error('Authenticated account reference is required');
+  static toDto(e: Partial<AlertHistory>) {
+    if (!Number.isFinite(e.latitude) || !Number.isFinite(e.longitude) || !e.locationRecordedAt)
+      throw new Error('Se necesita una ubicación válida y reciente.');
     return {
-      userId: entity.userId,
-      type: entity.type || '',
-      location: entity.location || '',
-      time: entity.time || '',
-      status: entity.status || '',
-      statusClass: entity.statusClass || '',
-      createdAt: entity.createdAt || new Date().toISOString(),
+      type: e.type || 'PANIC',
+      latitude: e.latitude,
+      longitude: e.longitude,
+      accuracyM: e.accuracyM,
+      locationRecordedAt: e.locationRecordedAt,
     };
   }
 }

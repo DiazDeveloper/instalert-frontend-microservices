@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { PermissionState } from '../domain/entities/emergency-alert.entity';
 import { environment } from '../../../environments/environment';
 
@@ -31,10 +31,12 @@ export class EmergencyApi {
 
   // HTTP (historial)
   getEmergencies(): Observable<any[]> {
-    return this.http.get<any[]>(this.url);
+    return this.http.get<{ content: any[] }>(this.url).pipe(map((page) => page.content));
   }
 
   createEmergency(emergency: any): Observable<any> {
-    return this.http.post<any>(this.url, emergency);
+    return this.http.post<any>(this.url, emergency, {
+      headers: { 'Idempotency-Key': crypto.randomUUID() },
+    });
   }
 }

@@ -1,6 +1,11 @@
 export interface AlertHistory {
-  id: number;
+  id: string;
+  accountId?: string;
   userId?: number;
+  latitude?: number;
+  longitude?: number;
+  accuracyM?: number;
+  locationRecordedAt?: string;
   type: string;
   location: string;
   time: string;
