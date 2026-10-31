@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "api": "json-server --watch server/db.json --routes server/routes.json --port 3000",
-    "test:account": "ng test --watch=false --ts-config=tsconfig.account.spec.json --include=src/app/account/application/user-store.spec.ts --include=src/app/shared/infrastructure/interceptors/auth.interceptor.spec.ts"
+    "test:account": "ng test --watch=false --ts-config=tsconfig.account.spec.json --include=src/app/account/application/user-store.spec.ts --include=src/app/shared/infrastructure/interceptors/auth.interceptor.spec.ts",
+    "test:emergencies": "ng test --watch=false --ts-config=tsconfig.emergencies.spec.json --include=src/app/emergencies/infrastructure/adapters/emergency-http.adapter.spec.ts --include=src/app/emergencies/application/state/panic-button.store.spec.ts"
   },
   "private": true,
   "packageManager": "npm@11.6.2",
