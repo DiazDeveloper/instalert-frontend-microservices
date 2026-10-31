@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": ["src/**/*.d.ts", "src/app/emergencies/infrastructure/adapters/emergency-http.adapter.spec.ts", "src/app/emergencies/application/state/panic-button.store.spec.ts"]
+}
